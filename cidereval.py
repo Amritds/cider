@@ -16,13 +16,12 @@ app = Flask(__name__)
 @app.route('/cider')
 def hello_world(config_file):
     # load the configuration file
-    config = request.get_json()
 
-    pathToData = config['pathToData']
-    refName = config['refName']
-    candName = config['candName']
-    resultFile = config['resultFile']
-    df_mode = config['idf']
+    pathToData = request.args.get('pathToData')
+    refName = request.args.get('refName')
+    candName = request.args.get('candName')
+    resultFile = requests.args.get('resultFile')
+    df_mode = request.args.get('idf')
 
     # Print the parameters
     print "Running CIDEr with the following settings"
