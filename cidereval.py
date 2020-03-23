@@ -20,7 +20,7 @@ def hello_world():
     pathToData = request.args.get('pathToData')
     refName = request.args.get('refName')
     candName = request.args.get('candName')
-    resultFile = requests.args.get('resultFile')
+    resultFile = request.args.get('resultFile')
     df_mode = request.args.get('idf')
 
     # Print the parameters
