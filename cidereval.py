@@ -14,7 +14,7 @@ from flask import request
 app = Flask(__name__)
 
 @app.route('/cider')
-def hello_world(config_file):
+def hello_world():
     # load the configuration file
 
     pathToData = request.args.get('pathToData')
