@@ -4,47 +4,53 @@
 
 # demo script for running CIDEr
 import json
+import sys
 from pydataformat.loadData import LoadData
 from pyciderevalcap.eval import CIDErEvalCap as ciderEval
 
-# load the configuration file
-config = json.loads(open('params.json', 'r').read())
+from flask import Flask
+app = Flask(__name__)
 
-pathToData = config['pathToData']
-refName = config['refName']
-candName = config['candName']
-resultFile = config['resultFile']
-df_mode = config['idf']
+@app.route('/cider/<config_file>')
+def hello_world(config_file):
+    # load the configuration file
+    config = json.loads(open(config_file, 'r').read())
 
-# Print the parameters
-print "Running CIDEr with the following settings"
-print "*****************************"
-print "Reference File:%s" % (refName)
-print "Candidate File:%s" % (candName)
-print "Result File:%s" % (resultFile)
-print "IDF:%s" % (df_mode)
-print "*****************************"
+    pathToData = config['pathToData']
+    refName = config['refName']
+    candName = config['candName']
+    resultFile = config['resultFile']
+    df_mode = config['idf']
 
-# In[2]:
+    # Print the parameters
+    print "Running CIDEr with the following settings"
+    print "*****************************"
+    print "Reference File:%s" % (refName)
+    print "Candidate File:%s" % (candName)
+    print "Result File:%s" % (resultFile)
+    print "IDF:%s" % (df_mode)
+    print "*****************************"
 
-# load reference and candidate sentences
-loadDat = LoadData(pathToData)
-gts, res = loadDat.readJson(refName, candName)
+    # In[2]:
 
-
-# In[3]:
-
-# calculate cider scores
-scorer = ciderEval(gts, res, df_mode)
-# scores: dict of list with key = metric and value = score given to each
-# candidate
-scores = scorer.evaluate()
+    # load reference and candidate sentences
+    loadDat = LoadData(pathToData)
+    gts, res = loadDat.readJson(refName, candName)
 
 
-# In[7]:
+    # In[3]:
 
-# scores['CIDEr'] contains CIDEr scores in a list for each candidate
-# scores['CIDErD'] contains CIDEr-D scores in a list for each candidate
+    # calculate cider scores
+    scorer = ciderEval(gts, res, df_mode)
+    # scores: dict of list with key = metric and value = score given to each
+    # candidate
+    scores = scorer.evaluate()
 
-with open(resultFile, 'w') as outfile:
-    json.dump(scores, outfile)
+
+    # In[7]:
+
+    # scores['CIDEr'] contains CIDEr scores in a list for each candidate
+    # scores['CIDErD'] contains CIDEr-D scores in a list for each candidate
+
+    with open(resultFile, 'w') as outfile:
+        json.dump(scores, outfile)
