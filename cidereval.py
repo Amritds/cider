@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/cider/<config_file>')
 def hello_world(config_file):
     # load the configuration file
-    config = json.loads(open(config_file, 'r').read())
+    config = json.loads(open(config_file[1:-1], 'r').read())
 
     pathToData = config['pathToData']
     refName = config['refName']
