@@ -9,12 +9,14 @@ from pydataformat.loadData import LoadData
 from pyciderevalcap.eval import CIDErEvalCap as ciderEval
 
 from flask import Flask
+from flask import request
+
 app = Flask(__name__)
 
 @app.route('/cider/<config_file>')
 def hello_world(config_file):
     # load the configuration file
-    config = json.loads(open(str(config_file).replace('_','/'), 'r').read())
+    config = request.get_json()
 
     pathToData = config['pathToData']
     refName = config['refName']
