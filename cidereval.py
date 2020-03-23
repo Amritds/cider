@@ -13,7 +13,7 @@ from flask import request
 
 app = Flask(__name__)
 
-@app.route('/cider/<config_file>')
+@app.route('/cider')
 def hello_world(config_file):
     # load the configuration file
     config = request.get_json()
