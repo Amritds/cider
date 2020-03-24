@@ -24,9 +24,7 @@ class CIDErEvalCap:
         # =================================================
 
         print 'setting up scorers...'
-        scorers = [
-            (Cider(df=self.df), "CIDEr"), (CiderD(df=self.df), "CIDErD")
-        ]
+        scorers = [(CiderD(df=self.df), "CIDErD")]
 
         # =================================================
         # Compute scores
