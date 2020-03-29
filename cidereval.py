@@ -55,3 +55,5 @@ def hello_world():
 
     with open(resultFile, 'w') as outfile:
         json.dump(scores, outfile)
+        
+    return 200
